@@ -1,0 +1,170 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===================================================================
+   SETU-Sustain Design Tokens
+   Philosophy: MaintainX-style professional maintenance software.
+   Clean, dense, work-oriented. Not a dashboard. Not a HUD.
+   =================================================================== */
+
+:root {
+  --radius: 0.375rem;
+  
+  /* ── Surfaces (80% of UI) ─────────────────────────── */
+  --bg-base:        #0f1117;   /* Outermost background */
+  --bg-surface:     #151b25;   /* Panel / list surface  */
+  --bg-elevated:    #1c2535;   /* Hover / selected row  */
+  --bg-card:        #1c2535;   /* Cards / side panels   */
+  
+  /* ── Borders ──────────────────────────────────────── */
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong:  rgba(255, 255, 255, 0.16);
+
+  /* ── Text ─────────────────────────────────────────── */
+  --text-primary:   #f0f4f8;
+  --text-secondary: #94a3b8;
+  --text-muted:     #64748b;
+  --text-disabled:  #374151;
+
+  /* ── Color Hunt Green Palette (15% of UI) ─────────── */
+  --green-900: #1e392a;
+  --green-800: #2d5a40;
+  --green-700: #3e7b57;
+  --green-600: #4e9c6e;
+  --green-400: #84c59b;
+  --green-300: #a8d9b8;
+
+  /* ── Semantic Status Colors (5% of UI) ────────────── */
+  --status-critical:   #ef4444;
+  --status-critical-bg: rgba(239, 68, 68, 0.12);
+  --status-critical-border: rgba(239, 68, 68, 0.30);
+  
+  --status-high:       #f97316;
+  --status-high-bg:    rgba(249, 115, 22, 0.12);
+  --status-high-border: rgba(249, 115, 22, 0.30);
+  
+  --status-warning:    #f59e0b;
+  --status-warning-bg: rgba(245, 158, 11, 0.12);
+  --status-warning-border: rgba(245, 158, 11, 0.30);
+  
+  --status-healthy:    #10b981;
+  --status-healthy-bg: rgba(16, 185, 129, 0.12);
+  --status-healthy-border: rgba(16, 185, 129, 0.30);
+  
+  --status-info:       #64748b;
+  --status-info-bg:    rgba(100, 116, 139, 0.12);
+  --status-info-border: rgba(100, 116, 139, 0.30);
+
+  /* ── shadcn Tokens ─────────────────────────────────── */
+  --background:         var(--bg-base);
+  --foreground:         var(--text-primary);
+  --card:               var(--bg-card);
+  --card-foreground:    var(--text-primary);
+  --popover:            var(--bg-card);
+  --popover-foreground: var(--text-primary);
+  --primary:            var(--green-700);
+  --primary-foreground: #ffffff;
+  --secondary:          var(--bg-elevated);
+  --secondary-foreground: var(--text-secondary);
+  --muted:              var(--bg-elevated);
+  --muted-foreground:   var(--text-muted);
+  --accent:             var(--bg-elevated);
+  --accent-foreground:  var(--text-primary);
+  --destructive:        var(--status-critical);
+  --destructive-foreground: #ffffff;
+  --border:             var(--border-subtle);
+  --input:              var(--bg-elevated);
+  --ring:               var(--green-600);
+  --radius-lg:          0.5rem;
+  --radius-xl:          0.625rem;
+  
+  /* Sidebar tokens */
+  --sidebar:                var(--bg-surface);
+  --sidebar-foreground:     var(--text-secondary);
+  --sidebar-primary:        var(--green-700);
+  --sidebar-primary-foreground: #fff;
+  --sidebar-accent:         var(--bg-elevated);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border:         var(--border-subtle);
+  --sidebar-ring:           var(--green-600);
+}
+
+@theme inline {
+  --font-sans: 'Geist Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-primary:            var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:          var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-border:             var(--border);
+  --color-ring:               var(--ring);
+  --color-sidebar:            var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary:    var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent:     var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border:     var(--sidebar-border);
+  --color-sidebar-ring:       var(--sidebar-ring);
+}
+
+/* ── Base Styles ───────────────────────────────────────── */
+@layer base {
+  * { border-color: var(--border-subtle); box-sizing: border-box; }
+  html { color-scheme: dark; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  body { background: var(--bg-base); color: var(--text-primary); }
+}
+
+/* ── Utility Classes ───────────────────────────────────── */
+
+/* Panel surface used throughout the app */
+.panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+}
+
+/* Subtle inset background block */
+.inset-block {
+  background: var(--bg-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+}
+
+/* Row in any list / table */
+.list-row {
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 120ms ease;
+  cursor: pointer;
+}
+.list-row:hover { background: var(--bg-elevated); }
+.list-row.selected { background: var(--bg-elevated); border-left: 2px solid var(--green-600); }
+.list-row:last-child { border-bottom: none; }
+
+/* Section label above a block */
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Monospace ID pill */
+.id-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
